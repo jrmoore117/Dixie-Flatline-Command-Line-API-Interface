@@ -25,9 +25,9 @@ var currentQueryType = "";
 var userQueryTerms = "";
 
 // Console log opening message from Dixie to console
-console.log("========================================")
+console.log("=========================================")
 console.log('Dixie: "Hey, Case. What can I do for ya?"');
-console.log("========================================")
+console.log("=========================================")
 
 // begin a new prompt
 inquirer.prompt([
@@ -74,30 +74,55 @@ inquirer.prompt([
         // assign search terms to userQueryTerms variable
         userQueryTerms = response.searchTerms;
         // console.log(userQueryTerms);
-
+        
+        console.log("=============================")
         console.log("Dixie: \"I'm on it, Case.\"");
+        console.log("=============================")
 
         // switch-case statment
         switch(currentQueryType){
             case "look up a song.":
-                // query bands in town api
-                // console log parsed response
-                    // .then
-                        // new prompt
-                            // type: confirm
-                            // message asking user if they want another search
-                            // name
-                        // .then
-                            // if confirm = true
-                                // call dixie flatline function again
-                            // else
-                                // end program
-
-                break;
-            case "find some concert info.":
                 // query spotify api
                 // console log parsed response
                     // see above
+                break;
+            case "find some concert info.":
+                // query bands in town api
+
+                const options = {  
+                    url: "https://rest.bandsintown.com/artists/" + userQueryTerms + "/events?app_id=codingbootcamp",
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Accept-Charset': 'utf-8',
+                        'User-Agent': 'my-reddit-client'
+                    }
+                };
+
+                request(options ,function(error, response, body){
+                    if(error){
+                        return console.log("Error: " + error);
+                    }
+
+                    console.log("Dixie: \"Here's what I found.\"");
+                    console.log("=============================")
+
+                    // console log parsed response
+                    var json = JSON.parse(body);
+                    console.log("Venue: " + json[0].venue.name);
+                    console.log("Location : " + json[0].venue.city);
+                    console.log("Date : " + json[0].datetime);
+
+                    // new prompt
+                        // type: confirm
+                        // message asking user if they want another search
+                        // name
+                    // .then
+                        // if confirm = true
+                            // call dixie flatline function again
+                        // else
+                            // end program
+                });
                 break;
             case "look up a movie.":
                 // query omdb api
