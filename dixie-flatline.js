@@ -107,19 +107,26 @@ inquirer.prompt([
                         // return console.log("Error: " + error);
                     }
 
-                    console.log("Dixie: \"Here's what I found.\"");
-                    console.log("=============================");
-                    
-                    if(json[0].venue.name && json[0].venue.city && json[0].venue.datetime){
-                        // console log parsed response
-                        var json = JSON.parse(body);
+                    // console log parsed response
+                    var json = JSON.parse(body);
+
+                    if(json.length < 1){                        
+                        console.log("Dixie: \"Sorry, bud. No luck.\"");
+                        console.log("=============================");
+                    } else if(json.errorMessage){
+                        console.log("Dixie: \"Sorry, bud. No luck.\"");
+                        console.log("=============================");                       
+                    } else if(json[0].venue.name && json[0].venue.city && json[0].datetime) {
+                        console.log("Dixie: \"Here's what I found.\"");
+                        console.log("=============================");
                         console.log("Venue: " + json[0].venue.name);
                         console.log("Location : " + json[0].venue.city);
                         console.log("Date : " + json[0].datetime);
-                        console.log("============================================");
+                        console.log("============================================");                        
                     } else {
                         console.log("Dixie: \"Sorry, bud. No luck.\"");
-                        return console.log("=============================");
+                        console.log("=============================");
+                        console.log("scenario 4");
                     }
 
                     restartDixie();
