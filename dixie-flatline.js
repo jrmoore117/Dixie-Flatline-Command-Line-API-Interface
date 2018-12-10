@@ -1,4 +1,7 @@
 // require node modules for api requests
+var request = require("request");
+var spotifyAPI = require("node-spotify-api");
+var moment = require("moment");
 
 // Require .env file
 require("dotenv").config();
@@ -55,6 +58,7 @@ inquirer.prompt([
             console.log("====================================================================");
             console.log("Dixie: \"Okay, I'll " + currentQueryType + " What's the movie you wanna see?\"");
             console.log("====================================================================");
+            break;
     }
 
     // new prompt
@@ -71,9 +75,12 @@ inquirer.prompt([
         userQueryTerms = response.searchTerms;
         // console.log(userQueryTerms);
 
+        console.log("Dixie: \"I'm on it, Case.\"");
+
         // switch-case statment
-            // case: spotify
-                // query spotify api
+        switch(currentQueryType){
+            case "look up a song.":
+                // query bands in town api
                 // console log parsed response
                     // .then
                         // new prompt
@@ -85,14 +92,20 @@ inquirer.prompt([
                                 // call dixie flatline function again
                             // else
                                 // end program
-            // case: bands in town
-                // query bands in town api
+
+                break;
+            case "find some concert info.":
+                // query spotify api
                 // console log parsed response
-                    // see lines 41-50
-            // case: omdb
+                    // see above
+                break;
+            case "look up a movie.":
                 // query omdb api
                 // console log parsed response
-                    // see lines 41-50
+                    // see above
+                break;
+        }
+        
     })
     
 })
