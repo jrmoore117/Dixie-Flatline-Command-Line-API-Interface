@@ -90,7 +90,7 @@ inquirer.prompt([
             case "find some concert info.":
                 // query bands in town api
 
-                const options = {  
+                var options = {  
                     url: "https://rest.bandsintown.com/artists/" + userQueryTerms + "/events?app_id=codingbootcamp",
                     method: 'GET',
                     headers: {
@@ -115,18 +115,17 @@ inquirer.prompt([
                         console.log("=============================");
                     } else if(json.errorMessage){
                         console.log("Dixie: \"Sorry, bud. No luck.\"");
-                        console.log("=============================");                       
+                        console.log("============================="); 
                     } else if(json[0].venue.name && json[0].venue.city && json[0].datetime) {
                         console.log("Dixie: \"Here's what I found.\"");
                         console.log("=============================");
                         console.log("Venue: " + json[0].venue.name);
                         console.log("Location : " + json[0].venue.city);
                         console.log("Date : " + json[0].datetime);
-                        console.log("============================================");                        
+                        console.log("============================================");
                     } else {
                         console.log("Dixie: \"Sorry, bud. No luck.\"");
                         console.log("=============================");
-                        console.log("scenario 4");
                     }
 
                     restartDixie();
@@ -134,8 +133,40 @@ inquirer.prompt([
                 break;
             case "look up a movie.":
                 // query omdb api
-                // console log parsed response
-                    // see above
+                
+                var options = {  
+                    url: "http://www.omdbapi.com/?apikey=trilogy&t=" + userQueryTerms,
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Accept-Charset': 'utf-8',
+                        'User-Agent': 'my-reddit-client'
+                    }
+                };
+
+                request(options ,function(error, response, body){
+                    if(error){
+                        console.log("Dixie: \"Sorry, bud. No luck.\"");
+                        return console.log("=============================");
+                        // return console.log("Error: " + error);
+                    }
+
+                    var json = JSON.parse(body);
+                    
+                    console.log("Dixie: \"Here's what I found.\"");
+                    console.log("=============================");
+                    console.log("Title: " + json.Title);
+                    console.log("Release Year: " + json.Year);
+                    console.log("IMDB Rating: " + json.Ratings[0].Value);
+                    console.log("Rotten Tomatoes Rating: " + json.Ratings[1].Value);
+                    console.log("Country: " + json.Country);
+                    console.log("Language: " + json.Language);
+                    console.log("Plot: " + json.Plot);
+                    console.log("Actors: " + json.Actors);
+                    console.log("============================================");
+
+                    restartDixie();
+                });
                 break;
         }
         
@@ -161,11 +192,11 @@ function restartDixie(){
             // Start new session with Dixie
             askDixie();
         } else {
+            // end program
             console.log("============================================");
             console.log("Dixie: \"Okay, talk to ya later, bud.\"");
-            return console.log("======================================");
+            return console.log("=====================================");
         }
-            // end program
     })
 }
 
