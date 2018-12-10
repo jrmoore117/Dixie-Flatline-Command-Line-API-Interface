@@ -18,17 +18,18 @@ function Spotify(id, secret) {
 }
 
 var spotify = new Spotify(spotifyImport.spotify.id, spotifyImport.spotify.secret);
-console.log("Spotify ID: " + spotify.id + ", Spotify Secret: " + spotify.secret + ".");
+// console.log("Spotify ID: " + spotify.id + ", Spotify Secret: " + spotify.secret + ".");
 
 // Declare global variables for currentAPI and userQueryTerms
 var currentQueryType = "";
 var userQueryTerms = "";
 
 // Console log opening message from Dixie to console
-console.log("=========================================")
+console.log("=========================================");
 console.log('Dixie: "Hey, Case. What can I do for ya?"');
-console.log("=========================================")
+console.log("=========================================");
 
+function askDixie() {
 // begin a new prompt
 inquirer.prompt([
     {
@@ -75,9 +76,9 @@ inquirer.prompt([
         userQueryTerms = response.searchTerms;
         // console.log(userQueryTerms);
         
-        console.log("=============================")
+        console.log("=============================");
         console.log("Dixie: \"I'm on it, Case.\"");
-        console.log("=============================")
+        console.log("=============================");
 
         // switch-case statment
         switch(currentQueryType){
@@ -101,27 +102,27 @@ inquirer.prompt([
 
                 request(options ,function(error, response, body){
                     if(error){
-                        return console.log("Error: " + error);
+                        console.log("Dixie: \"Sorry, bud. No luck.\"");
+                        return console.log("=============================");
+                        // return console.log("Error: " + error);
                     }
 
                     console.log("Dixie: \"Here's what I found.\"");
-                    console.log("=============================")
+                    console.log("=============================");
+                    
+                    if(json[0].venue.name && json[0].venue.city && json[0].venue.datetime){
+                        // console log parsed response
+                        var json = JSON.parse(body);
+                        console.log("Venue: " + json[0].venue.name);
+                        console.log("Location : " + json[0].venue.city);
+                        console.log("Date : " + json[0].datetime);
+                        console.log("============================================");
+                    } else {
+                        console.log("Dixie: \"Sorry, bud. No luck.\"");
+                        return console.log("=============================");
+                    }
 
-                    // console log parsed response
-                    var json = JSON.parse(body);
-                    console.log("Venue: " + json[0].venue.name);
-                    console.log("Location : " + json[0].venue.city);
-                    console.log("Date : " + json[0].datetime);
-
-                    // new prompt
-                        // type: confirm
-                        // message asking user if they want another search
-                        // name
-                    // .then
-                        // if confirm = true
-                            // call dixie flatline function again
-                        // else
-                            // end program
+                    restartDixie();
                 });
                 break;
             case "look up a movie.":
@@ -134,3 +135,31 @@ inquirer.prompt([
     })
     
 })
+}
+
+function restartDixie(){
+    // new prompt
+    inquirer.prompt([
+        {
+            type: "confirm",
+            message: "Dixie: \"Anything else you need, Case?\"",
+            name: "searchAgain"
+        }
+    ]).then(function(response) {
+        var confirm = response.searchAgain;
+        // console.log(confirm);
+        
+        if(confirm) {
+            console.log("============================================");
+            // Start new session with Dixie
+            askDixie();
+        } else {
+            console.log("============================================");
+            console.log("Dixie: \"Okay, talk to ya later, bud.\"");
+            return console.log("======================================");
+        }
+            // end program
+    })
+}
+
+askDixie();
