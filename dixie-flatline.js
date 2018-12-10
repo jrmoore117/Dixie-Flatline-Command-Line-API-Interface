@@ -38,7 +38,7 @@ inquirer.prompt([
 ]).then(function(response){
     // assign chosen API to currentAPI variable
     currentQueryType = response.searchType;
-    console.log(currentQueryType);
+    // console.log(currentQueryType);
 
     switch(currentQueryType) {
         case "look up a song.":
@@ -58,32 +58,41 @@ inquirer.prompt([
     }
 
     // new prompt
-        // type: list
-        // message asking user to pick what to do
-        // choices: spotify, bands in town, omdb
-        // name
-})
-// .then
-    // assign search terms to userQueryTerms variable
-    // switch-case statment
-        // case: spotify
-            // query spotify api
-            // console log parsed response
-                // .then
-                    // new prompt
-                        // type: confirm
-                        // message asking user if they want another search
-                        // name
+    inquirer.prompt([
+        {
+            type: "input",
+            message: 'Case: "Thanks, Dix. The name is..."',
+            name: "searchTerms"
+        }
+    
+    // .then
+    ]).then(function(response) {
+        // assign search terms to userQueryTerms variable
+        userQueryTerms = response.searchTerms;
+        // console.log(userQueryTerms);
+
+        // switch-case statment
+            // case: spotify
+                // query spotify api
+                // console log parsed response
                     // .then
-                        // if confirm = true
-                            // call dixie flatline function again
-                        // else
-                            // end program
-        // case: bands in town
-            // query bands in town api
-            // console log parsed response
-                // see lines 41-50
-        // case: omdb
-            // query omdb api
-            // console log parsed response
-                // see lines 41-50
+                        // new prompt
+                            // type: confirm
+                            // message asking user if they want another search
+                            // name
+                        // .then
+                            // if confirm = true
+                                // call dixie flatline function again
+                            // else
+                                // end program
+            // case: bands in town
+                // query bands in town api
+                // console log parsed response
+                    // see lines 41-50
+            // case: omdb
+                // query omdb api
+                // console log parsed response
+                    // see lines 41-50
+    })
+    
+})
