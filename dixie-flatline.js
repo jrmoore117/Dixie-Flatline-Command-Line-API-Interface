@@ -84,6 +84,10 @@ function askDixie() {
                 case "look up a song.":
                     // query spotify api
 
+                    if(userQueryTerms === ""){
+                        userQueryTerms = "we're finally landing"
+                    }
+
                     spotify.search({ type: 'track', query: userQueryTerms }, function (err, data) {
                         if (err) {
                             return console.log('Error occurred: ' + err);
