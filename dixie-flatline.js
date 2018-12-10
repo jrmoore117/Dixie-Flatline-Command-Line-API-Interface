@@ -2,6 +2,7 @@
 var request = require("request");
 var Spotify = require("node-spotify-api");
 var moment = require("moment");
+var fs = require("fs");
 
 // Require .env file
 require("dotenv").config();
@@ -34,7 +35,7 @@ function askDixie() {
         {
             type: "list",
             message: 'Case: "Dixie, I need you to..."',
-            choices: ["look up a song.", "find some concert info.", "look up a movie."],
+            choices: ["look up a song.", "find some concert info.", "look up a movie.", "<error>"],
             name: "searchType"
         }
     ]).then(function (response) {
@@ -57,6 +58,11 @@ function askDixie() {
             case "look up a movie.":
                 console.log("====================================================================");
                 console.log("Dixie: \"Okay, I'll " + currentQueryType + " What's the movie you wanna see?\"");
+                console.log("====================================================================");
+                break;
+            case "<error>":
+                console.log("====================================================================");
+                console.log("Dixie: \"Wintermute is interfering, Case! Help! He's taking ov-\"");
                 console.log("====================================================================");
                 break;
         }
@@ -82,13 +88,30 @@ function askDixie() {
             // switch-case statment
             switch (currentQueryType) {
                 case "look up a song.":
-                    searchSpotify();
+                    if (userQueryTerms === "") {
+                        userQueryTerms = "we're finally landing"
+                    }
+                    searchSpotify(userQueryTerms);
                     break;
                 case "find some concert info.":
                     searchBandsInTown();
                     break;
                 case "look up a movie.":
                     searchOMDB();
+                    break;
+                case "<error>":
+                    var errorSearch = "";
+                    fs.readFile("random.txt", "utf8", function(error, data) {
+                        // If the code experiences any errors it will log the error to the console.
+                        if (error) {
+                            return console.log(error);
+                        }
+
+                        // console.log("DATA: " + data);
+                        errorSearch = data;
+                        
+                        searchSpotify(errorSearch);
+                    });
                     break;
             }
         })
@@ -120,13 +143,10 @@ function restartDixie() {
     })
 }
 
-function searchSpotify() {
+function searchSpotify(str) {
     // query spotify api
-    if (userQueryTerms === "") {
-        userQueryTerms = "we're finally landing"
-    }
 
-    spotify.search({ type: 'track', query: userQueryTerms }, function (err, data) {
+    spotify.search({ type: 'track', query: str }, function (err, data) {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
@@ -170,7 +190,9 @@ function searchBandsInTown() {
         // console log parsed response
         var json = JSON.parse(body);
 
-        var reformatDate = moment(json[0].datetime).format("MM/DD/YYYY")
+        if(json[0].datetime) {
+            var reformatDate = moment(json[0].datetime).format("MM/DD/YYYY")
+        }
 
         if (json.length < 1) {
             console.log("Dixie: \"Sorry, bud. No luck.\"");
