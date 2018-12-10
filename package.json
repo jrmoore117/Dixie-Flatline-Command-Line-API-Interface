@@ -1,0 +1,27 @@
+{
+  "name": "Dixie-Flatline-Command-Line-API-Interface",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrmoore117/Dixie-Flatline-Command-Line-API-Interface.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jrmoore117/Dixie-Flatline-Command-Line-API-Interface/issues"
+  },
+  "homepage": "https://github.com/jrmoore117/Dixie-Flatline-Command-Line-API-Interface#readme",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "inquirer": "^6.2.1",
+    "moment": "^2.22.2",
+    "node-spotify-api": "^1.0.7",
+    "request": "^2.88.0"
+  }
+}
