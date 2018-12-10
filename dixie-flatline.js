@@ -140,6 +140,11 @@ function askDixie() {
                     });
                     break;
                 case "look up a movie.":
+                    
+                    if(userQueryTerms === ""){
+                        userQueryTerms = "Mr. Nobody"
+                    }
+                
                     // query omdb api
 
                     var options = {
