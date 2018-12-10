@@ -84,12 +84,20 @@ function askDixie() {
                 case "look up a song.":
                     // query spotify api
 
-                    spotify.search({ type: 'track', query: 'All the Small Things' }, function (err, data) {
+                    spotify.search({ type: 'track', query: userQueryTerms }, function (err, data) {
                         if (err) {
                             return console.log('Error occurred: ' + err);
                         }
+                        
+                        console.log("Dixie: \"Here's what I found.\"");
+                        console.log("=============================");
+                        console.log("Artist: " + data.tracks.items[0].artists[0].name);
+                        console.log("Album: " + data.tracks.items[0].album.name);
+                        console.log("Song: " + data.tracks.items[0].name);
+                        console.log("Preview: " + data.tracks.items[0].preview_url);
+                        console.log("============================================");
 
-                        console.log(data);
+                        restartDixie();
                     });
 
                     // console log parsed response
