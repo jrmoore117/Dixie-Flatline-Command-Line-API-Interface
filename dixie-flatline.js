@@ -18,28 +18,44 @@ var spotify = new Spotify(spotifyImport.spotify.id, spotifyImport.spotify.secret
 console.log("Spotify ID: " + spotify.id + ", Spotify Secret: " + spotify.secret + ".");
 
 // Declare global variables for currentAPI and userQueryTerms
-var currentAPI = "";
+var currentQueryType = "";
 var userQueryTerms = "";
 
 // Console log opening message from Dixie to console
 console.log("========================================")
-console.log("Dixie: Hey, Case. What can I do for ya?");
+console.log('Dixie: "Hey, Case. What can I do for ya?"');
 console.log("========================================")
 
 // begin a new prompt
 inquirer.prompt([
     {
         type: "list",
-        message: "Case: Dixie, I need you to...",
+        message: 'Case: "Dixie, I need you to..."',
         choices: ["look up a song.", "find some concert info.", "look up a movie."],
         name: "searchType"
     }
 // .then
 ]).then(function(response){
     // assign chosen API to currentAPI variable
-    currentAPI = response.searchType;
+    currentQueryType = response.searchType;
+    console.log(currentQueryType);
 
-    console.log(currentAPI);
+    switch(currentQueryType) {
+        case "look up a song.":
+            console.log("================================================================");
+            console.log("Dixie: \"Okay, I'll " + currentQueryType + " What's the name of the song?\"");
+            console.log("================================================================");
+            break;
+        case "find some concert info.":
+            console.log("===============================================================================================");
+            console.log("Dixie: \"Okay, I'll " + currentQueryType + " What's the name of music artist you're lookin' for?\"");
+            console.log("===============================================================================================");
+            break;
+        case "look up a movie.":
+            console.log("====================================================================");
+            console.log("Dixie: \"Okay, I'll " + currentQueryType + " What's the movie you wanna see?\"");
+            console.log("====================================================================");
+    }
 
     // new prompt
         // type: list
