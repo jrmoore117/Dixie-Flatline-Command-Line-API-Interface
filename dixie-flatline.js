@@ -96,6 +96,11 @@ function askDixie() {
                     // see above
                     break;
                 case "find some concert info.":
+                    
+                    if(userQueryTerms === ""){
+                        userQueryTerms = "tycho"
+                    }
+                
                     // query bands in town api
 
                     var options = {
@@ -142,7 +147,7 @@ function askDixie() {
                 case "look up a movie.":
                     
                     if(userQueryTerms === ""){
-                        userQueryTerms = "Mr. Nobody"
+                        userQueryTerms = "the matrix"
                     }
                 
                     // query omdb api
