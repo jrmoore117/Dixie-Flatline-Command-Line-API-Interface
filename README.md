@@ -1,4 +1,4 @@
-# Dixie-Flatline-Command-Line-API-Interface
+# Dixie Flatline Command Line Interface
 
 ![Dixie Flatline CLI Img](readme-images/dixie-flatline-cli.png) 
 
