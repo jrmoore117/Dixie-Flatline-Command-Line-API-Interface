@@ -10,7 +10,7 @@ Dixie Flatline Command Line Interface is a Terminal app themed after William Gib
 
 ## Getting Started / Prerequisites
 
-To use the Dixie Flatline CLI, you will need to install the following Node Modules:
+To use the Dixie Flatline CLI, you will need to install the following NPM packages:
 * Request
 * Node-Spotify-API
 * Inquirer
@@ -26,13 +26,13 @@ You will also need your own API keys to the Spotify, Bands in Town, and OMDB API
 If you downloaded the app's package.json file, run the following command once from the app's directory in Terminal:
 
 ```
-npm install
+$ npm install
 ```
 
-If you did not download the app's package.json file, navigate to the app's directory in Terminal, and run the following command for each of the Node Modules listed above:
+If you did not download the app's package.json file, run the following command for each of the NPM packages listed above:
 
 ```
-npm install <module name>
+$ npm install <package name>
 ```
 
 <hr>
@@ -41,7 +41,7 @@ npm install <module name>
 
 * [`Javascript`](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
-* [`Node Modules`](https://www.npmjs.com/)
+* [`NPM Packages`](https://www.npmjs.com/)
     1. [Request](https://www.npmjs.com/package/request)
     2. [Node-Spotify-API](https://www.npmjs.com/package/node-spotify-api)
     3. [Inquirer](https://www.npmjs.com/package/inquirer)
