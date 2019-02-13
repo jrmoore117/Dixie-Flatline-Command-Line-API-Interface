@@ -10,29 +10,24 @@ Dixie Flatline Command Line Interface is a Terminal app themed after William Gib
 
 ## Getting Started / Prerequisites
 
-To use the Dixie Flatline CLI, you will need to install the following NPM packages:
-* Request
-* Node-Spotify-API
-* Inquirer
-* Moment
-* Dotenv
+First, clone or download this repository.
 
-You will also need your own API keys to the Spotify, Bands in Town, and OMDB APIs.
+You will also need your own API keys to the Spotify, Bands in Town, and OMDB APIs. You can set your API keys to variables in your own .env file (matching the variable names in keys.js).
 
 <hr>
 
 ## Installing
 
-If you downloaded the app's package.json file, run the following command once from the app's directory in Terminal:
+In Terminal, navigate to the root directory of this repository and run the following command:
 
 ```
-$ npm install
+$ npm i
 ```
 
-If you did not download the app's package.json file, run the following command for each of the NPM packages listed above:
+To initialize the app, run the command:
 
 ```
-$ npm install <package name>
+$ node dixie-flatline.js
 ```
 
 <hr>
